@@ -299,7 +299,28 @@ j(document).ready(function () {
         let username = j("#username").val();
         let password = j("#password").val();
         let csrf = j(this).data('csrf');
-        console.log(csrf);
+        j.ajax({
+            URL:"login.php",
+            TYPE:"POST",
+            data:{
+                action:"userLogin",
+                username:username,
+                password:password,
+                csrf:csrf
+            },
+            beforeSend:function () {
+
+            },
+            success:function () {
+
+            },
+            error:function () {
+
+            },
+            complete:function () {
+                
+            }
+        })
     })
 })
 
