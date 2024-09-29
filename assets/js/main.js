@@ -301,8 +301,8 @@ j(document).ready(function () {
         let csrf = j(this).data('csrf');
         console.log("ussername:"+username,"pass"+password);
         j.ajax({
-            URL:"login.php",
-            TYPE:"POST",
+            url:"login.php",
+            type:"POST",
             data:{
                 action:"userLogin",
                 username:username,
@@ -310,16 +310,19 @@ j(document).ready(function () {
                 csrf:csrf
             },
             beforeSend:function () {
+                j('.loading').show();
+                j('#submit').text('درحال ارسال ...');
+            },
+            success:function (response) {
+                alert("با موفقیت وارد شدید!");
 
             },
-            success:function () {
-
-            },
-            error:function () {
-
+            error:function (error) {
+                alert("عدم وررود موفق به سایت!");
             },
             complete:function () {
-
+                j('.loading').hide();
+                j('#submit').text('ورود');
             }
         })
     })
