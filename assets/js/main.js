@@ -299,7 +299,6 @@ j(document).ready(function () {
         let username = j("#username").val();
         let password = j("#password").val();
         let csrf = j(this).data('csrf');
-        console.log("ussername:"+username,"pass"+password);
         j.ajax({
             url:"login.php",
             type:"POST",
@@ -307,23 +306,28 @@ j(document).ready(function () {
                 action:"userLogin",
                 username:username,
                 password:password,
-                csrf:csrf
-            },
+                csrf:csrf},
             beforeSend:function () {
                 j('.loading').show();
                 j('#submit').text('درحال ارسال ...');
             },
             success:function (response) {
                 alert("با موفقیت وارد شدید!");
-
+                let jsonData = JSON.parse(response);
+                if (jsonData.success == true){
+                    alert(jsonData.message);
+                }else{
+                    alert(jsonData.message);
+                }
             },
             error:function (error) {
                 alert("عدم وررود موفق به سایت!");
+                console.log(error);
             },
             complete:function () {
                 j('.loading').hide();
                 j('#submit').text('ورود');
-            }
+            },
         })
     })
 })

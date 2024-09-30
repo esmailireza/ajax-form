@@ -7,11 +7,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         'status'=>200,
     ]);
     
-}else{
+}else {
     echo json_encode([
         'success'=>false,
         'message'=>'Login failed',
-        'status'=>200,
+        'status'=>404,
     ]);
 }
 
