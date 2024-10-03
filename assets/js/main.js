@@ -296,39 +296,31 @@ jQuery(document).ready(function() {
 j(document).ready(function () {
     j("#login-form").on('submit',function (e) {
         e.preventDefault();
-        let username = j("#username").val();
-        let password = j("#password").val();
-        let csrf = j(this).data('csrf');
+        let form_data = j(this).serialize();
+        let action = "do_login";
+        console.log(form_data);
         j.ajax({
             url:"login.php",
             type:"POST",
-            data:{
-                action:"userLogin",
-                username:username,
-                password:password,
-                csrf:csrf},
-            beforeSend:function () {
-                j('.loading').show();
-                j('#submit').text('درحال ارسال ...');
-            },
-            success:function (response) {
-                alert("با موفقیت وارد شدید!");
-                let jsonData = JSON.parse(response);
-                if (jsonData.success == true){
-                    alert(jsonData.message);
-                }else{
-                    alert(jsonData.message);
-                }
-            },
-            error:function (error) {
-                alert("عدم وررود موفق به سایت!");
-                console.log(error);
-            },
-            complete:function () {
-                j('.loading').hide();
-                j('#submit').text('ورود');
-            },
-        })
+            data: form_data+"&action="+action,
+                success: function (response) {
+                    alert("با موفقیت وارد شدید!");
+                    let jsonData = JSON.parse(response);
+                    if (jsonData.success == true) {
+                        alert(jsonData.message);
+                    } else {
+                        alert(jsonData.message);
+                    }
+                },
+                error: function (error) {
+                    alert("عدم وررود موفق به سایت!");
+                    console.log(error);
+                },
+                complete: function () {
+                    j('.loading').hide();
+                    j('#submit').text('ورود');
+                },
+            })
     })
 })
 
